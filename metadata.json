@@ -1,0 +1,7 @@
+{
+  "name": "Staffly AI",
+  "description": "Your AI workforce. More work, less effort. Digital employees for small businesses and entrepreneurs to manage customer support, sales, orders, and daily business operations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
