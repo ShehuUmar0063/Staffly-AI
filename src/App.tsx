@@ -11,6 +11,7 @@ import { OrdersView } from './components/views/OrdersView';
 import { KnowledgeView } from './components/views/KnowledgeView';
 import { ReportsView } from './components/views/ReportsView';
 import { SettingsView } from './components/views/SettingsView';
+import { MobileBottomNav } from './components/MobileBottomNav';
 
 const MainLayout: React.FC = () => {
   const { currentView } = useApp();
@@ -21,7 +22,7 @@ const MainLayout: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans flex">
+    <div className="min-h-[100dvh] bg-slate-50 text-slate-900 font-sans flex flex-col lg:flex-row overflow-x-hidden">
       {/* Sidebar Navigation */}
       <Sidebar
         mobileOpen={mobileSidebarOpen}
@@ -29,14 +30,14 @@ const MainLayout: React.FC = () => {
       />
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0 lg:pl-72">
+      <div className="flex-1 flex flex-col min-w-0 lg:pl-72 min-h-[100dvh]">
         {/* Top Sticky Header */}
         <Header
           onToggleMobileMenu={() => setMobileSidebarOpen(!mobileSidebarOpen)}
         />
 
         {/* Dynamic Page Views */}
-        <main className="flex-1 p-4 sm:p-8 max-w-7xl mx-auto w-full">
+        <main className="flex-1 p-3.5 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full pb-24 lg:pb-12">
           {currentView === 'dashboard' && <DashboardView />}
 
           {currentView === 'employees' && <EmployeesView />}
@@ -53,6 +54,9 @@ const MainLayout: React.FC = () => {
 
           {currentView === 'settings' && <SettingsView />}
         </main>
+
+        {/* Mobile Thumb-Friendly Bottom Navigation */}
+        <MobileBottomNav onOpenMenu={() => setMobileSidebarOpen(true)} />
       </div>
     </div>
   );

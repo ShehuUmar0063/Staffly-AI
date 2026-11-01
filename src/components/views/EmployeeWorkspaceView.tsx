@@ -384,43 +384,43 @@ export const EmployeeWorkspaceView: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-8rem)] min-h-[580px] bg-white rounded-3xl border border-slate-200/90 shadow-sm overflow-hidden">
+    <div className="flex flex-col h-[calc(100dvh-11rem)] lg:h-[calc(100dvh-8rem)] bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-sm overflow-hidden">
       {/* Top Bar: Employee Identity & Switcher */}
-      <div className="bg-slate-900 text-white px-5 py-3.5 flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 shrink-0">
-        <div className="flex items-center gap-3">
+      <div className="bg-slate-900 text-white px-3.5 sm:px-5 py-2.5 sm:py-3.5 flex items-center justify-between gap-2 border-b border-slate-800 shrink-0">
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
           <button
             onClick={() => setCurrentView('employees')}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
+            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer shrink-0"
             title="Back to all employees"
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
 
-          <div className="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-xl shrink-0">
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-lg sm:text-xl shrink-0">
             {currentEmp.avatar}
           </div>
 
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="font-bold text-base text-white">{currentEmp.name}</span>
-              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-800 text-teal-400 border border-slate-700">
+          <div className="min-w-0">
+            <div className="flex items-center gap-1.5">
+              <span className="font-bold text-sm sm:text-base text-white truncate">{currentEmp.name}</span>
+              <span className="text-[9px] sm:text-[10px] font-semibold px-1.5 py-0.2 rounded-full bg-slate-800 text-teal-400 border border-slate-700 shrink-0">
                 {currentEmp.title}
               </span>
             </div>
-            <div className="flex items-center gap-2 text-[11px] text-slate-400">
-              <span className="inline-flex items-center gap-1 text-emerald-400">
+            <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] text-slate-400">
+              <span className="inline-flex items-center gap-1 text-emerald-400 shrink-0">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                Live AI Engine
+                Live AI
               </span>
               <span>•</span>
-              <span className="truncate max-w-[200px] sm:max-w-xs">{businessKnowledge.businessName}</span>
+              <span className="truncate max-w-[120px] sm:max-w-xs">{businessKnowledge.businessName}</span>
             </div>
           </div>
         </div>
 
         {/* Right side controls: Role Tabs & Knowledge Info */}
-        <div className="flex items-center gap-2">
-          {/* Employee Quick Switcher Tabs */}
+        <div className="flex items-center gap-1.5 shrink-0">
+          {/* Employee Quick Switcher Tabs (Desktop) */}
           <div className="hidden md:flex items-center bg-slate-800/80 p-1 rounded-xl border border-slate-700 text-xs">
             {employees.map((emp) => (
               <button
@@ -441,7 +441,7 @@ export const EmployeeWorkspaceView: React.FC = () => {
           {/* View Knowledge button */}
           <button
             onClick={() => setShowKnowledgeModal(true)}
-            className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium border border-slate-700 flex items-center gap-1.5 transition-colors cursor-pointer"
+            className="p-1.5 sm:px-2.5 sm:py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium border border-slate-700 flex items-center gap-1.5 transition-colors cursor-pointer"
             title="Inspect knowledge base fed to this AI"
           >
             <BookOpen className="w-3.5 h-3.5 text-teal-400" />
@@ -457,6 +457,27 @@ export const EmployeeWorkspaceView: React.FC = () => {
             <Trash2 className="w-4 h-4" />
           </button>
         </div>
+      </div>
+
+      {/* Mobile-only Employee Switcher Pill Strip */}
+      <div className="flex md:hidden items-center gap-1.5 px-3 py-1.5 bg-slate-900 border-b border-slate-800 overflow-x-auto no-scrollbar shrink-0">
+        <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider shrink-0 mr-1">
+          Role:
+        </span>
+        {employees.map((emp) => (
+          <button
+            key={emp.id}
+            onClick={() => setSelectedEmployee(emp.id)}
+            className={`px-2.5 py-1 rounded-full text-xs font-semibold shrink-0 flex items-center gap-1 transition-all cursor-pointer ${
+              selectedEmployee === emp.id
+                ? 'bg-teal-400 text-slate-950 font-bold shadow-xs'
+                : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+            }`}
+          >
+            <span>{emp.avatar}</span>
+            <span>{emp.name}</span>
+          </button>
+        ))}
       </div>
 
       {/* Suggested Starters Strip */}
@@ -681,20 +702,20 @@ export const EmployeeWorkspaceView: React.FC = () => {
       </div>
 
       {/* Chat Input Field */}
-      <div className="p-4 bg-white border-t border-slate-200 shrink-0">
+      <div className="p-2.5 sm:p-4 bg-white border-t border-slate-200 shrink-0">
         <form
           onSubmit={(e) => {
             e.preventDefault();
             handleSend();
           }}
-          className="flex items-center gap-2"
+          className="flex items-center gap-1.5 sm:gap-2"
         >
           {/* Voice Input Button */}
           <button
             type="button"
             onClick={toggleVoiceInput}
             title={isListening ? 'Listening... click to stop' : 'Click to speak using microphone'}
-            className={`p-3 rounded-xl border transition-all cursor-pointer shrink-0 ${
+            className={`p-2.5 sm:p-3 rounded-xl border transition-all cursor-pointer shrink-0 ${
               isListening
                 ? 'bg-rose-500 text-white border-rose-600 animate-pulse'
                 : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
@@ -710,16 +731,16 @@ export const EmployeeWorkspaceView: React.FC = () => {
             onChange={(e) => setInputValue(e.target.value)}
             placeholder={
               isListening
-                ? 'Listening to your voice...'
+                ? 'Listening to voice...'
                 : `Ask ${currentEmp.name} (${currentEmp.title})...`
             }
             disabled={loading}
-            className="flex-1 bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all disabled:opacity-60"
+            className="flex-1 bg-slate-50 border border-slate-300 rounded-xl px-3.5 sm:px-4 py-2.5 sm:py-3 text-base sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all disabled:opacity-60"
           />
           <button
             type="submit"
             disabled={loading || !inputValue.trim()}
-            className="px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 disabled:bg-slate-300 text-white font-bold text-sm shadow-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer disabled:cursor-not-allowed active:scale-95 shrink-0"
+            className="px-3.5 sm:px-5 py-2.5 sm:py-3 rounded-xl bg-slate-900 hover:bg-slate-800 disabled:bg-slate-300 text-white font-bold text-xs sm:text-sm shadow-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer disabled:cursor-not-allowed active:scale-95 shrink-0"
           >
             <Send className="w-4 h-4 text-teal-400" />
             <span className="hidden sm:inline">Send</span>

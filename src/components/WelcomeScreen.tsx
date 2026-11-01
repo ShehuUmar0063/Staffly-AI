@@ -16,25 +16,25 @@ export const WelcomeScreen: React.FC = () => {
   const { enterGuestDashboard } = useApp();
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between selection:bg-teal-500 selection:text-white relative overflow-hidden font-sans">
+    <div className="min-h-[100dvh] bg-slate-950 text-slate-100 flex flex-col justify-between selection:bg-teal-500 selection:text-white relative overflow-hidden font-sans">
       {/* Background Glows & Gradients */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-b from-teal-500/15 via-indigo-600/10 to-transparent blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-teal-500/5 blur-3xl pointer-events-none" />
 
       {/* Top Header */}
-      <header className="relative z-10 max-w-7xl mx-auto w-full px-6 py-6 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center shadow-lg shadow-teal-500/20 text-slate-950 font-extrabold text-xl">
+      <header className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 py-4 sm:py-6 flex items-center justify-between">
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center shadow-lg shadow-teal-500/20 text-slate-950 font-extrabold text-lg sm:text-xl">
             S
           </div>
           <div>
-            <div className="flex items-center gap-2">
-              <span className="font-bold text-xl tracking-tight text-white">Staffly</span>
-              <span className="text-xs uppercase tracking-widest font-extrabold px-1.5 py-0.5 rounded bg-teal-500/20 text-teal-400 border border-teal-500/30">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <span className="font-bold text-lg sm:text-xl tracking-tight text-white">Staffly</span>
+              <span className="text-[10px] sm:text-xs uppercase tracking-widest font-extrabold px-1.5 py-0.5 rounded bg-teal-500/20 text-teal-400 border border-teal-500/30">
                 AI
               </span>
             </div>
-            <p className="text-xs text-slate-400 font-medium">Your AI Workforce</p>
+            <p className="text-[11px] sm:text-xs text-slate-400 font-medium">Your AI Workforce</p>
           </div>
         </div>
 
@@ -45,11 +45,11 @@ export const WelcomeScreen: React.FC = () => {
       </header>
 
       {/* Main Content Area */}
-      <main className="relative z-10 max-w-6xl mx-auto w-full px-6 py-8 flex flex-col items-center my-auto">
+      <main className="relative z-10 max-w-6xl mx-auto w-full px-4 sm:px-6 py-4 sm:py-8 flex flex-col items-center my-auto">
         {/* Login-style Card */}
-        <div className="w-full max-w-md bg-slate-900/90 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-8 sm:p-10 shadow-2xl shadow-black/60 relative">
+        <div className="w-full max-w-md bg-slate-900/90 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-10 shadow-2xl shadow-black/60 relative">
           {/* Subtle Top Accent */}
-          <div className="absolute -top-px left-10 right-10 h-[2px] bg-gradient-to-r from-transparent via-teal-400 to-transparent" />
+          <div className="absolute -top-px left-8 right-8 sm:left-10 sm:right-10 h-[2px] bg-gradient-to-r from-transparent via-teal-400 to-transparent" />
 
           {/* Icon Badge */}
           <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/80 flex items-center justify-center mx-auto mb-6 shadow-inner text-teal-400">
