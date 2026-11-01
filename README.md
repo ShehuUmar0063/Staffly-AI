@@ -143,6 +143,24 @@ If you prefer deploying from a branch:
 #### 🤖 AI Fallback on GitHub Pages
 GitHub Pages is a static host (it does not execute backend Node.js code). When deployed to GitHub Pages, Staffly AI's built-in **Client-Side Knowledge Engine** automatically takes over. All 4 digital employees (Support, Sales, Orders, and Operations) will answer questions using your Business Knowledge Base, parse orders, and record leads directly in the browser!
 
+### ▲ Deploying to Vercel (1-Click & Zero Errors)
+
+We have configured full support for Vercel with automated build settings and serverless AI endpoints:
+
+1. **Why Vercel had errors previously**:
+   - `npm install` encountered a peer dependency conflict between Vite 8 and esbuild (`ERESOLVE`). We removed the conflicting duplicate dependency and generated a clean `package-lock.json`.
+   - Vercel needed a `vercel.json` configuration to know that Vite outputs to `dist` and to route client-side URLs without 404s.
+   - We added dedicated Vercel Serverless Functions in `api/chat.ts` and `api/health.ts`.
+2. **How to Deploy on Vercel**:
+   1. Go to [Vercel Dashboard](https://vercel.com/dashboard) and click **Add New...** > **Project**.
+   2. Select your GitHub repository.
+   3. Vercel will automatically read `vercel.json` with preset:
+      - **Framework Preset:** Vite
+      - **Build Command:** `npm run build`
+      - **Output Directory:** `dist`
+   4. *(Optional)* In **Environment Variables**, add `GEMINI_API_KEY` with your Google Gemini key. (If not added, the application automatically uses the built-in Knowledge Engine fallback).
+   5. Click **Deploy**. Your app will be live with a high-speed `https://your-project.vercel.app` URL!
+
 ### Docker / Cloud Run Deployment
 
 You can containerize Staffly AI with the following standard Dockerfile:
