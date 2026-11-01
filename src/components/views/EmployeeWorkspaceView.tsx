@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { AIEmployeeRole, ChatMessage } from '../../types';
+import { generateClientSmartFallback } from '../../services/aiFallback';
 import {
   Send,
   Bot,
@@ -283,17 +284,27 @@ export const EmployeeWorkspaceView: React.FC = () => {
       // Record task completed for this AI employee
       recordAITask(selectedEmployee);
     } catch (err: any) {
-      console.error('Chat error:', err);
-      const errorMsg: ChatMessage = {
-        id: `err-${Date.now()}`,
+      console.warn('API endpoint unreachable, generating client-side AI response with business knowledge base:', err);
+      // Seamless static hosting fallback (e.g. GitHub Pages without Node server)
+      const fallbackReply = generateClientSmartFallback(selectedEmployee, text, businessKnowledge);
+      const draft = parseOrderDraft(fallbackReply);
+      const lead = parseLeadDraft(fallbackReply);
+
+      const assistantMsg: ChatMessage = {
+        id: `asst-${Date.now()}`,
         role: 'assistant',
-        content: `I'm having a brief issue connecting. Please try again in a moment.`,
+        content: fallbackReply,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        orderDraft: draft || undefined,
+        leadDraft: lead || undefined,
       };
+
       setMessagesByRole((prev) => ({
         ...prev,
-        [selectedEmployee]: [...newMessages, errorMsg],
+        [selectedEmployee]: [...newMessages, assistantMsg],
       }));
+
+      recordAITask(selectedEmployee);
     } finally {
       setLoading(false);
     }

@@ -117,6 +117,32 @@ NODE_ENV=production npm start
 
 The Express server serves the static assets from `dist/` and hosts the `/api/chat` and `/api/health` endpoints on port 3000.
 
+### 🌐 Deploying to GitHub Pages (Fixing Blank Screen)
+
+If you saw a **blank white page** after deploying to GitHub Pages, this happens for two common reasons:
+1. **GitHub Pages is serving the raw repository root instead of the compiled build**: Browsers cannot run unbundled TypeScript files like `/src/main.tsx`. GitHub Pages must be configured to build your project or serve the compiled files inside `dist/`.
+2. **Absolute asset paths**: Standard Vite apps build with absolute `/assets/...` URLs which fail when hosted under a repository subfolder (e.g., `https://your-username.github.io/staffly-ai/`). We have already configured `base: './'` in `vite.config.ts` so all assets load properly in any repository!
+
+#### ✨ Method A: Automatic Deployment via GitHub Actions (Recommended — Zero Config)
+We have included a pre-configured GitHub Actions workflow in `.github/workflows/deploy.yml`:
+1. In your GitHub repository, click **Settings** (tab at the top).
+2. In the left sidebar, click **Pages**.
+3. Under **Build and deployment** > **Source**, change the dropdown from **"Deploy from a branch"** to **"GitHub Actions"**.
+4. Push your code to the `main` (or `master`) branch.
+5. GitHub will automatically build and publish your site with a live URL (e.g., `https://username.github.io/repo-name/`)!
+
+#### 🛠 Method B: Deploying via `gh-pages` Branch
+If you prefer deploying from a branch:
+1. Run `npm run build` locally. This creates the production `dist/` directory (and automatically duplicates `index.html` to `404.html` for client routing).
+2. Deploy the `dist` folder to your `gh-pages` branch using the `gh-pages` tool or git subtree:
+   ```bash
+   npx gh-pages -d dist
+   ```
+3. In **Settings** > **Pages**, set **Source** to **Deploy from a branch** and pick **Branch: gh-pages** / **/(root)**.
+
+#### 🤖 AI Fallback on GitHub Pages
+GitHub Pages is a static host (it does not execute backend Node.js code). When deployed to GitHub Pages, Staffly AI's built-in **Client-Side Knowledge Engine** automatically takes over. All 4 digital employees (Support, Sales, Orders, and Operations) will answer questions using your Business Knowledge Base, parse orders, and record leads directly in the browser!
+
 ### Docker / Cloud Run Deployment
 
 You can containerize Staffly AI with the following standard Dockerfile:
